@@ -19,7 +19,7 @@ export default function App() {
       });
   }, []);
 
-  console.log(breeds);
+  // console.log(breeds);
 
   const subBreed = (sB) => {
     return sB.map((b, index) => b + (index === sB.length - 1 ? '' : ', '));
@@ -27,20 +27,22 @@ export default function App() {
 
   return (
     <div>
-      <h1>Hello Papokp!</h1>
-      <p> we are starting :)</p>
-
-      <select>
+      <h1>Hello!</h1>
+      <p>Here are the dog breeds :)</p>
+      <ul>
         {breeds &&
           breeds.map((breed) => {
-            /* console.log(breed[1])*/
+            /* 
+            Sub breeds:
+            console.log(breed[1])
+            */
             return (
-              <option>
+              <li>
                 {breed[0]}s{subBreed(breed[1])}
-              </option>
+              </li>
             );
           })}
-      </select>
+      </ul>
     </div>
   );
 }
