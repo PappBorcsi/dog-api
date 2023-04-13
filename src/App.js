@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import './style.css';
+import BuyDogButton from './BuyDogButton';
+import Adv from './Adv';
 
 export default function App() {
   const [breeds, setBreeds] = useState([]);
 
   useEffect(() => {
-    fetch('https://dog.ceo/api/breeds/list/all')
+    fetch('https://dog.ceo/api/breeds/list/all') //promis-t ad vissza
       .then((b) => b.json())
       .then((b) => {
         const { message: breedsResponse } = b;
@@ -25,6 +27,7 @@ export default function App() {
     </div>
   );
 }
+export const BreedContext = createContext();
 
 //componens lh
 const BreedsSelect = ({ breedList }) => {
@@ -35,6 +38,7 @@ const BreedsSelect = ({ breedList }) => {
   const handleBreedChange = (event) => {
     const actualBreed = event.target.value;
     setBreedSelect(actualBreed);
+    setsubBreedSelect(undefined);
     const actualSubBreeds = getSelectedSubBreeds(actualBreed);
     setsubBreedList(actualSubBreeds);
   };
@@ -70,6 +74,13 @@ const BreedsSelect = ({ breedList }) => {
           ))}
         </select>
       )}
+      <BreedContext.Provider
+        value={
+          subBreedSelect ? breedSelect + ' ' + subBreedSelect : breedSelect
+        }
+      >
+        <Adv />
+      </BreedContext.Provider>
     </>
   );
 };
